@@ -1,0 +1,54 @@
+{
+  "extends": ["./node_modules/kcd-scripts/eslint.js", "plugin:jest/all"],
+  "plugins": ["prettier", "jest"],
+  "rules": {
+    "prettier/prettier": "error",
+    "react-hooks/exhaustive-deps": ["warn"],
+    "react/jsx-no-literals": ["error", { "noStrings": true }],
+    "no-extend-native": ["error", { "exceptions": ["Object", "String"] }]
+  },
+  "overrides": [
+    {
+      "files": ["./cypress/**/*.spec.js"],
+      "rules": {
+        "no-unused-expressions": 0,
+        "jest/valid-expect": 0,
+        "no-undef": 0
+      }
+    }
+  ],
+  "settings": {
+    "import/no-unresolved": 2,
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": ["node_modules", "src"]
+      },
+      "babel-module": {
+        "root": ["./src"],
+        "alias": {
+          "src": "./src",
+          "helpers": "./tests/helpers",
+          "components": "src/components",
+          "constants": "src/constants",
+          "enums": "src/enums",
+          "hooks": "src/hooks",
+          "images": "src/images",
+          "locales": "src/locales",
+          "masks": "src/masks",
+          "mock": "src/mock",
+          "pages": "src/pages",
+          "store": "src/store",
+          "schemas": "src/schemas",
+          "services": "src/services",
+          "styles": "src/styles",
+          "utils": "src/utils",
+          "validators": "src/validators",
+          "assets": "src/assets"
+        }
+      }
+    }
+  },
+  "env": {
+    "jest/globals": true
+  }
+}

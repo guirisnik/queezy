@@ -5,8 +5,10 @@
   "version": "0.1.0",
   "author": "Gui Risnik <guilherme.risnik@gmail.com>",
   "dependencies": {
+    "@emotion/react": "^11.4.0",
+    "@emotion/styled": "^11.3.0",
     "bumbag": "^2.0.4",
-    "firebase": "^8.6.3",
+    "firebase": "^8.6.4",
     "formik": "^2.2.9",
     "gatsby": "^3.6.2",
     "gatsby-plugin-gatsby-cloud": "^2.6.1",

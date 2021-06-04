@@ -1,11 +1,14 @@
 import React from 'react'
+import { Provider as BumbagProvider } from 'bumbag'
 import { Router } from '@reach/router'
 import { Home } from 'screens/Home'
 
 const IndexPage = () => (
-  <Router>
-    <Home path='/' />
-  </Router>
+  <BumbagProvider>
+    <Router>
+      <Home path='/' />
+    </Router>
+  </BumbagProvider>
 )
 
 export default IndexPage

@@ -1,5 +1,6 @@
 import React from 'react'
+import { Heading } from 'bumbag'
 
-const Home = () => <h1>Home Page</h1>
+const Home = () => <Heading>Home Page</Heading>
 
 export { Home }

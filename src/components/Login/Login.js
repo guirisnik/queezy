@@ -1,19 +1,34 @@
-import React from 'react'
-import { InputField, Button } from 'bumbag'
+import React, { useState } from 'react'
+import { navigate } from '@reach/router'
+import { InputField, Button, Alert } from 'bumbag'
 import { useFormik } from 'formik'
 import firebase from 'src/firebase'
 import { Form } from './login.style'
 
 const Login = () => {
-  const onSubmit = ({ email, password }) => {
+  const [error, setError] = useState(null)
+
+  const navigateToHome = () => navigate('/home')
+
+  const triggerAlertWithCountdown = (error = { message: 'Unknown error' }) => {
+    setError(error?.message)
+    setTimeout(() => setError(null), 5_000)
+  }
+
+  const onSubmit = ({ email, password }) =>
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(console.log)
-      .catch(reason => console.info(reason))
-  }
+      .then(navigateToHome)
+      .catch(triggerAlertWithCountdown)
 
-  const { values, handleBlur, handleChange, handleSubmit } = useFormik({
+  const {
+    values,
+    isSubmitting,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
     initialValues: {
       email: '',
       password: '',
@@ -39,7 +54,14 @@ const Login = () => {
         onBlur={handleBlur}
         onChange={handleChange}
       />
-      <Button type='submit'>Login</Button>
+      {error && (
+        <Alert title='Login error' type='danger'>
+          {error}
+        </Alert>
+      )}
+      <Button isLoading={isSubmitting} type='submit'>
+        Login
+      </Button>
     </Form>
   )
 }

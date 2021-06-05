@@ -1,17 +1,30 @@
-import React from 'react'
-import { InputField, Button } from 'bumbag'
+import React, { useState } from 'react'
+import { navigate } from '@reach/router'
+import { InputField, Button, Alert } from 'bumbag'
 import { useFormik } from 'formik'
 import firebase from 'src/firebase'
 import { Form } from './register.style'
 
 const Register = () => {
-  const onSubmit = ({ email, password }) => {
+  const [error, setError] = useState(null)
+
+  const navigateToHome = () => navigate('/home')
+
+  const triggerAlertWithCountdown = (error = { message: 'Unknown error' }) => {
+    setError(error?.message)
+    setTimeout(() => setError(null), 5_000)
+  }
+
+  const setUserDisplayName = displayName => ({ user }) =>
+    user.updateProfile({ displayName })
+
+  const onSubmit = ({ displayName, email, password }) =>
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(console.log)
-      .catch(console.error)
-  }
+      .then(setUserDisplayName(displayName))
+      .then(navigateToHome)
+      .catch(triggerAlertWithCountdown)
 
   const {
     values,
@@ -21,6 +34,7 @@ const Register = () => {
     handleSubmit,
   } = useFormik({
     initialValues: {
+      displayName: '',
       email: '',
       password: '',
     },
@@ -29,6 +43,14 @@ const Register = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <InputField
+        label='Display Name'
+        name='displayName'
+        placeholder='John Doe'
+        value={values.displayName}
+        onBlur={handleBlur}
+        onChange={handleChange}
+      />
       <InputField
         label='Email'
         name='email'
@@ -45,6 +67,11 @@ const Register = () => {
         onBlur={handleBlur}
         onChange={handleChange}
       />
+      {error && (
+        <Alert title='Login error' type='danger'>
+          {error}
+        </Alert>
+      )}
       <Button isLoading={isSubmitting} type='submit'>
         Register
       </Button>

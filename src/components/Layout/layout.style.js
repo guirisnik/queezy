@@ -9,4 +9,5 @@ export const MainContainer = styled.div`
 
 export const ContentContainer = styled.div`
   padding: 20px;
+  justify-self: flex-start;
 `

@@ -1,16 +1,20 @@
 import React from 'react'
 import { Provider as BumbagProvider } from 'bumbag'
-import { Router } from '@reach/router'
+import { Router, Redirect } from '@reach/router'
 import { Landing } from 'screens/Landing'
 import { Home } from 'screens/Home'
 import { Profile } from 'screens/Profile'
+import { PrivateRoute } from 'components/PrivateRoute'
 
 const IndexPage = () => (
   <BumbagProvider>
     <Router>
+      <Redirect from='/login' to='/' noThrow />
       <Landing path='/' />
-      <Home path='/home' />
-      <Profile path='/profile' />
+      <PrivateRoute path='/'>
+        <Home path='/home' />
+        <Profile path='/profile' />
+      </PrivateRoute>
     </Router>
   </BumbagProvider>
 )

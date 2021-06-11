@@ -1,28 +1,16 @@
 import React, { useEffect } from 'react'
 import { Tabs, Heading } from 'bumbag'
-import {
-  Education,
-  Examination,
-  Graduation,
-  Notebook,
-  Test,
-} from 'components/Icons'
+import { Logo } from 'components/Logo'
 import { Login } from 'components/Login'
 import { Register } from 'components/Register'
 import { MainContainer, FormContainer, LogoContainer } from './landing.style'
-
-const Icons = { Education, Examination, Graduation, Notebook, Test }
-
-const randomIconIndex = Math.floor(Math.random() * Object.keys(Icons).length)
-
-const RandomIcon = Object.values(Icons)[randomIconIndex]
 
 const Landing = () => {
   return (
     <MainContainer>
       <LogoContainer>
         <Heading marginBottom='50px'>Queezy</Heading>
-        <RandomIcon size='70%' />
+        <Logo />
       </LogoContainer>
       <FormContainer>
         <Tabs isFitted defaultSelectedId='login'>

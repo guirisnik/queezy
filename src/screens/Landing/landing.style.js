@@ -9,7 +9,7 @@ export const MainContainer = styled.div`
 `
 
 export const LogoContainer = styled.div`
-  background-color: #cecece;
+  background-color: #aaa;
   height: 100%;
   width: 100%;
   display: flex;

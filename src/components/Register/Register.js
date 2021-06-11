@@ -15,14 +15,19 @@ const Register = () => {
     setTimeout(() => setError(null), 5_000)
   }
 
-  const setUserDisplayName = displayName => ({ user }) =>
+  const sendEmailVerification = user => user.sendEmailVerification()
+
+  const setUserDisplayName = displayName => ({ user }) => {
     user.updateProfile({ displayName })
+    return user
+  }
 
   const onSubmit = ({ displayName, email, password }) =>
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(setUserDisplayName(displayName))
+      .then(sendEmailVerification)
       .then(navigateToHome)
       .catch(triggerAlertWithCountdown)
 

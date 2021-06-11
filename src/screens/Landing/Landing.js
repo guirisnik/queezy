@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Tabs, Heading } from 'bumbag'
 import {
   Education,
@@ -12,11 +12,11 @@ import { Register } from 'components/Register'
 import { MainContainer, FormContainer, LogoContainer } from './landing.style'
 
 const Landing = () => {
-  const Icons = [Education, Examination, Graduation, Notebook, Test]
+  const Icons = { Education, Examination, Graduation, Notebook, Test }
 
-  const randomIconIndex = Math.floor(Math.random() * Icons.length)
+  const randomIconIndex = Math.floor(Math.random() * Object.keys(Icons).length)
 
-  const RandomIcon = Icons[randomIconIndex]
+  const RandomIcon = Object.values(Icons)[randomIconIndex]
 
   return (
     <MainContainer>

@@ -11,13 +11,13 @@ import { Login } from 'components/Login'
 import { Register } from 'components/Register'
 import { MainContainer, FormContainer, LogoContainer } from './landing.style'
 
+const Icons = { Education, Examination, Graduation, Notebook, Test }
+
+const randomIconIndex = Math.floor(Math.random() * Object.keys(Icons).length)
+
+const RandomIcon = Object.values(Icons)[randomIconIndex]
+
 const Landing = () => {
-  const Icons = { Education, Examination, Graduation, Notebook, Test }
-
-  const randomIconIndex = Math.floor(Math.random() * Object.keys(Icons).length)
-
-  const RandomIcon = Object.values(Icons)[randomIconIndex]
-
   return (
     <MainContainer>
       <LogoContainer>

@@ -1,5 +1,6 @@
 import React from 'react'
+import { Heading } from 'bumbag'
 
-const NotFoundPage = () => <h1>404: Not Found</h1>
+const NotFoundPage = () => <Heading>404: Not Found</Heading>
 
 export default NotFoundPage

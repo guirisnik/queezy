@@ -1,7 +1,7 @@
 import React from 'react'
 import { navigate } from '@reach/router'
 import { SideNav } from 'bumbag'
-import { Profile } from 'components/Icons'
+import { Profile, Home } from 'components/Icons'
 
 const SideNavItem = ({ children, navId }) => (
   <SideNav.Item onClick={() => navigate(`/${navId}`)} navId={navId}>
@@ -11,11 +11,15 @@ const SideNavItem = ({ children, navId }) => (
 
 const Nav = () => (
   <SideNav
-    defaultSelectedId='profile'
+    defaultSelectedId='home'
     paddingRight='10px'
     borderRight='solid 2px #cecece'
   >
     <SideNav.Level title='Components'>
+      <SideNavItem navId='home'>
+        <Home size='20' marginRight='5px' />
+        Home
+      </SideNavItem>
       <SideNavItem navId='profile'>
         <Profile size='20' marginRight='5px' />
         Profile

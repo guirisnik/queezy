@@ -5,6 +5,7 @@ import { Landing } from 'screens/Landing'
 import { Home } from 'screens/Home'
 import { Profile } from 'screens/Profile'
 import { PrivateRoute } from 'components/PrivateRoute'
+import { VerifiedUser } from 'components/VerifiedUser'
 
 const IndexPage = () => (
   <BumbagProvider>
@@ -13,7 +14,9 @@ const IndexPage = () => (
       <Landing path='/' />
       <PrivateRoute path='/'>
         <Home path='/home' />
-        <Profile path='/profile' />
+        <VerifiedUser path='/'>
+          <Profile path='/profile' />
+        </VerifiedUser>
       </PrivateRoute>
     </Router>
   </BumbagProvider>

@@ -11,7 +11,7 @@ const VerifiedUser = ({ children }) =>
   firebase.auth().currentUser?.emailVerified ? (
     <>{children}</>
   ) : (
-    <Redirect noThrow to='/home' />
+    <Redirect noThrow to='/' />
   )
 
 export { VerifiedUser }

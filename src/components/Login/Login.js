@@ -1,26 +1,42 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { navigate } from '@reach/router'
-import { InputField, Button, Alert } from 'bumbag'
+import { InputField, Checkbox, Button, Alert } from 'bumbag'
 import { useFormik } from 'formik'
 import firebase from 'src/firebase'
 import { Form } from './login.style'
 
 const Login = () => {
+  const auth = firebase.auth()
   const [error, setError] = useState(null)
 
-  const navigateToHome = () => navigate('/home')
+  useEffect(() => {
+    auth.onAuthStateChanged(user => {
+      if (user) navigateToHome()
+    })
+  }, [])
+
+  const navigateToHome = () => navigate('/')
 
   const triggerAlertWithCountdown = (error = { message: 'Unknown error' }) => {
     setError(error?.message)
     setTimeout(() => setError(null), 5_000)
   }
 
-  const onSubmit = ({ email, password }) =>
-    firebase
-      .auth()
+  const onSubmit = ({ email, password, keepUserLoggedIn }) =>
+    auth
+      .setPersistence(getAuthPersistence(keepUserLoggedIn))
+      .then(() => signIn(email, password))
+
+  const signIn = (email, password) =>
+    auth
       .signInWithEmailAndPassword(email, password)
       .then(navigateToHome)
       .catch(triggerAlertWithCountdown)
+
+  const getAuthPersistence = keepUserLoggedIn =>
+    keepUserLoggedIn
+      ? firebase.auth.Auth.Persistence.LOCAL
+      : firebase.auth.Auth.Persistence.SESSION
 
   const {
     values,
@@ -32,6 +48,7 @@ const Login = () => {
     initialValues: {
       email: '',
       password: '',
+      keepUserLoggedIn: false,
     },
     onSubmit,
   })
@@ -53,6 +70,13 @@ const Login = () => {
         value={values.password}
         onBlur={handleBlur}
         onChange={handleChange}
+      />
+      <Checkbox
+        name='keepUserLoggedIn'
+        value={values.keepUserLoggedIn}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        label='Keep me logged in'
       />
       {error && (
         <Alert title='Login error' type='danger'>

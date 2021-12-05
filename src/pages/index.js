@@ -7,19 +7,19 @@ import { Profile } from 'screens/Profile'
 import { PrivateRoute } from 'components/PrivateRoute'
 import { VerifiedUser } from 'components/VerifiedUser'
 
-const IndexPage = () => (
+const IndexPage = () => {
+  return (
   <BumbagProvider>
     <Router>
-      <Redirect from='/login' to='/' noThrow />
-      <Landing path='/' />
+      <Landing path='/login' />
       <PrivateRoute path='/'>
-        <Home path='/home' />
+        <Home path='/' />
         <VerifiedUser path='/'>
           <Profile path='/profile' />
         </VerifiedUser>
       </PrivateRoute>
     </Router>
   </BumbagProvider>
-)
+)}
 
 export default IndexPage

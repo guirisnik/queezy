@@ -66,9 +66,8 @@ const QuizFactory = () => {
       <Form onSubmit={handleSubmit}>
         <InputField
           name='title'
-          label='Quiz title'
-          variant='underlined'
-          placeholder='My Quiz'
+          variant='underline'
+          placeholder='Quiz title'
           onChange={handleChange}
           onBlur={handleBlur}
           size='large'

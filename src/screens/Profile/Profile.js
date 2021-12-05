@@ -102,7 +102,7 @@ const Profile = () => {
   useEffect(setUserImage, [])
 
   return (
-    <Layout>
+    <>
       <Heading use='h2'>Profile Page</Heading>
       <DropdownMenu
         width='min-content'
@@ -163,7 +163,7 @@ const Profile = () => {
           </Button>
         </Group>
       </Form>
-    </Layout>
+    </>
   )
 }
 export { Profile }

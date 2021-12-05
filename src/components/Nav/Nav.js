@@ -3,28 +3,24 @@ import { navigate } from '@reach/router'
 import { SideNav } from 'bumbag'
 import { Profile, Home } from 'components/Icons'
 
-const SideNavItem = ({ children, navId }) => (
-  <SideNav.Item onClick={() => navigate(`/${navId}`)} navId={navId}>
-    {children}
-  </SideNav.Item>
-)
+const { Level, Item } = SideNav
 
 const Nav = () => (
   <SideNav
-    defaultSelectedId='home'
-    paddingRight='10px'
-    borderRight='solid 2px #cecece'
+    position='fixed'
+    width='270px'
+    height='100%'
+    justifySelf='flex-start'
+    background='#FAFBFC'
+    borderRight='1px solid #EEE'
+    boxShadow='-1px -2px 5px #EEE inset'
   >
-    <SideNav.Level title='Components'>
-      <SideNavItem navId='home'>
-        <Home size='20' marginRight='5px' />
-        Home
-      </SideNavItem>
-      <SideNavItem navId='profile'>
-        <Profile size='20' marginRight='5px' />
+    <Level>
+      <Item onClick={() => navigate(`/profile`)} navId='profile'>
+        <Profile size='30' marginRight='5px' />
         Profile
-      </SideNavItem>
-    </SideNav.Level>
+      </Item>
+    </Level>
   </SideNav>
 )
 

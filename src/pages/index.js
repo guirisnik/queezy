@@ -1,25 +1,26 @@
 import React from 'react'
+import { Router } from '@reach/router'
 import { Provider as BumbagProvider } from 'bumbag'
-import { Router, Redirect } from '@reach/router'
-import { Landing } from 'screens/Landing'
-import { Home } from 'screens/Home'
-import { Profile } from 'screens/Profile'
+import { Layout } from 'components/Layout'
 import { PrivateRoute } from 'components/PrivateRoute'
 import { VerifiedUser } from 'components/VerifiedUser'
+import { Home, Landing, Profile, QuizFactory } from 'src/screens'
 
-const IndexPage = () => {
-  return (
+const IndexPage = () => (
   <BumbagProvider>
     <Router>
       <Landing path='/login' />
-      <PrivateRoute path='/'>
-        <Home path='/' />
-        <VerifiedUser path='/'>
-          <Profile path='/profile' />
-        </VerifiedUser>
-      </PrivateRoute>
+      <Layout path='/'>
+        <PrivateRoute path='/'>
+          <Home path='/' />
+          <VerifiedUser path='/'>
+            <Profile path='/profile' />
+            <QuizFactory path='/new-quiz' />
+          </VerifiedUser>
+        </PrivateRoute>
+      </Layout>
     </Router>
   </BumbagProvider>
-)}
+)
 
 export default IndexPage

@@ -1,7 +1,12 @@
 import React from 'react'
 import { any } from 'prop-types'
 import { Nav } from 'components/Nav'
-import { MainContainer, ContentContainer } from './layout.style'
+import { Header } from './Header'
+import {
+  MainContainer,
+  ContentContainer,
+  ChildrenContainer,
+} from './layout.style'
 
 const propTypes = {
   children: any,
@@ -9,8 +14,11 @@ const propTypes = {
 
 const Layout = ({ children }) => (
   <MainContainer>
-    <Nav />
-    <ContentContainer>{children}</ContentContainer>
+    <Header />
+    <ContentContainer>
+      <Nav />
+      <ChildrenContainer>{children}</ChildrenContainer>
+    </ContentContainer>
   </MainContainer>
 )
 

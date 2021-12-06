@@ -6,11 +6,10 @@ import firebase from 'src/firebase'
 import { Form } from './login.style'
 
 const Login = () => {
-  const auth = firebase.auth()
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    auth.onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(user => {
       if (user) navigateToHome()
     })
   }, [])
@@ -23,12 +22,12 @@ const Login = () => {
   }
 
   const onSubmit = ({ email, password, keepUserLoggedIn }) =>
-    auth
+    firebase.auth()
       .setPersistence(getAuthPersistence(keepUserLoggedIn))
       .then(() => signIn(email, password))
 
   const signIn = (email, password) =>
-    auth
+    firebase.auth()
       .signInWithEmailAndPassword(email, password)
       .then(navigateToHome)
       .catch(triggerAlertWithCountdown)

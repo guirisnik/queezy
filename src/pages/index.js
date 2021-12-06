@@ -14,7 +14,7 @@ const IndexPage = () => (
         <PrivateRoute path='/'>
           <Home path='/' />
           <VerifiedUser path='/'>
-            <Profile path='/profile' />
+            {/* <Profile path='/profile' /> */}
             <QuizFactory path='/new-quiz' />
           </VerifiedUser>
         </PrivateRoute>

@@ -2,9 +2,8 @@ import React, { useRef, useState, useEffect } from 'react'
 import firebase from 'src/firebase'
 import { useFormik } from 'formik'
 import { Heading, Image, InputField, Button, DropdownMenu, Group } from 'bumbag'
-import { Layout } from 'components/Layout'
 import DefaultProfileImage from 'assets/default-avatar-profile.png'
-import { Form } from './profile.style'
+import { Container, Form } from './profile.style'
 
 const Profile = () => {
   const [profileImage, setProfileImage] = useState(null)
@@ -102,7 +101,7 @@ const Profile = () => {
   useEffect(setUserImage, [])
 
   return (
-    <>
+    <Container>
       <Heading use='h2'>Profile Page</Heading>
       <DropdownMenu
         width='min-content'
@@ -112,7 +111,7 @@ const Profile = () => {
             <DropdownMenu.Item onClick={handleUpload} iconBefore='solid-pen'>
               Upload photo...
             </DropdownMenu.Item>
-            {firebase.auth().currentUser.photoURL && (
+            {firebase.auth().currentUser?.photoURL && (
               <DropdownMenu.Item
                 onClick={handleRemove}
                 iconBefore='solid-trash-alt'
@@ -155,15 +154,15 @@ const Profile = () => {
           value={values.displayName}
         />
         <Group>
-          <Button width='100%' onClick={handleReset}>
+          <Button width='70%' onClick={handleReset}>
             Cancel
           </Button>
-          <Button isLoading={isSubmitting} type='submit'>
+          <Button width='30%' isLoading={isSubmitting} type='submit'>
             Save
           </Button>
         </Group>
       </Form>
-    </>
+    </Container>
   )
 }
 export { Profile }

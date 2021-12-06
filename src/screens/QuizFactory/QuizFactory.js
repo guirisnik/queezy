@@ -39,6 +39,7 @@ const QuizFactory = () => {
     initialValues: {
       title: '',
       questions: [defaultQuestion],
+      ownerId: firebase.auth().currentUser?.uid
     },
     onSubmit,
   })

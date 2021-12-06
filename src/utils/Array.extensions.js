@@ -1,4 +1,4 @@
-import { identity } from './functional'
+const identity = x => x
 
 Array.prototype.copy = function copy() {
   return this.map(identity)

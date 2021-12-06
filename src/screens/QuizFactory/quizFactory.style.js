@@ -25,13 +25,20 @@ export const QuestionContainer = styled.div`
   align-items: stretch;
   background: #eeebf5;
   border-radius: 6px;
-  margin-bottom: 20px;
+  margin-top: 20px;
   position: relative;
 `
 
 export const OptionContainer = styled.div`
   display: grid;
-  grid-template-columns: min-content 1fr;
+  grid-template-columns: 1fr min-content;
+  align-items: center;
+`
+
+export const NewOptionContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  gap: 10px;
   align-items: center;
 `
 

@@ -1,6 +1,7 @@
-import { Button, InputField, Set } from 'bumbag'
-import { useFormik } from 'formik'
 import React from 'react'
+import { useFormik } from 'formik'
+import { navigate } from '@reach/router'
+import { Button, InputField, Set, useToasts } from 'bumbag'
 import { Trash } from 'src/components/Icons'
 import { NewQuestion } from './NewQuestion.template'
 import { Form, MainContainer, QuestionContainer } from './quizFactory.style'
@@ -12,15 +13,27 @@ const defaultQuestion = {
 }
 
 const QuizFactory = () => {
+  const toasts = useToasts()
+
+  const successToast = () =>
+    toasts.success({
+      title: 'Success',
+      message: 'Quiz saved successfully!',
+    })
+
+  const failureToast = () =>
+    toasts.danger({
+      title: 'Error',
+      message: 'Something wrong happened. Try again later.',
+    })
+
   const onSubmit = values =>
     firebase
       .firestore()
       .collection('Quiz')
-      .add(values)
-      .then(quiz => console.log(`Quiz saved with id: ${quiz.id}`))
-      .catch(error =>
-        console.error(`An error occurred when saving quiz: ${error}`)
-      )
+      .add({ ...values, createdAt: Date() })
+      .then(successToast)
+      .catch(failureToast)
 
   const {
     values,
@@ -132,13 +145,19 @@ const QuizFactory = () => {
         ))}
         <Set marginTop='13px'>
           <Button
+            disabled={isSubmitting}
             palette='secondary'
             variant='outlined'
             onClick={addQuestion}
           >
             Add question
           </Button>
-          <Button palette='primary' variant='outlined' onClick={handleSubmit}>
+          <Button
+            isLoading={isSubmitting}
+            palette='primary'
+            variant='outlined'
+            type='submit'
+          >
             Submit
           </Button>
         </Set>

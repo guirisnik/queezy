@@ -29,20 +29,6 @@ const Header = () => {
         <Item navId='home' paddingX='0.8rem' href='/'>
           <Queezy size='100' />
         </Item>
-        <Item
-          navId='profile'
-          paddingX='0.8rem'
-          onClick={() => navigate('/profile')}
-        >
-          Profile
-        </Item>
-        <Item
-          navId='new-quiz'
-          paddingX='0.8rem'
-          onClick={() => navigate('/new-quiz')}
-        >
-          New Quiz
-        </Item>
       </Section>
       <Section>
         <Item paddingX='0.8rem'>

@@ -19,6 +19,14 @@ const Nav = () => (
         Profile
       </Item>
     </Level>
+    <Level title='Quiz'>
+    <Item onClick={() => navigate(`/quiz`)} navId='quiz'>
+        New
+      </Item>
+      <Item onClick={() => navigate(`/quizzes`)} navId='my_quizzes'>
+        List
+      </Item>
+    </Level>
   </SideNav>
 )
 

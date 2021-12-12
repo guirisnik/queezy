@@ -24,7 +24,7 @@ const NewQuestion = ({
     <Set orientation='vertical' marginTop='20px' isFilled>
       <Label>Alternatives</Label>
       {alternatives.map((a, aIndex) => (
-        <NewOptionContainer>
+        <NewOptionContainer key={aIndex}>
           <InputField
             name={`questions[${index}].alternatives[${aIndex}]`}
             placeholder='Describe the alternative'

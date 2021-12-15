@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Table } from 'bumbag'
+import { Modal } from 'bumbag'
+import { Group, Button } from 'bumbag'
 import { MainContainer } from './quizzes.style'
-import 'utils/Array.extensions'
 import firebase from 'src/firebase'
 
 const { Head, Row, HeadCell, Body, Cell } = Table
@@ -16,7 +17,9 @@ const Quizzes = () => {
       .where('ownerId', '==', firebase.auth().currentUser.uid)
       .get()
       .then(querySnapshot =>
-        setQuizzes(querySnapshot.docs.map(doc => doc.data()))
+        setQuizzes(
+          querySnapshot.docs.map(doc => ({ data: doc.data(), ref: doc.ref }))
+        )
       )
       .catch(console.error)
   }
@@ -32,11 +35,21 @@ const Quizzes = () => {
     createdAt: new Date(quiz.createdAt),
   })
   const sortDescendingByDate = (a, b) => b.createdAt - a.createdAt
-  const toTableRow = quiz => (
+  const toTableRow = ({ data: { title, questions, createdAt }, ref }) => (
     <Row>
-      <Cell>{quiz.title}</Cell>
-      <Cell>{quiz.questions.length}</Cell>
-      <Cell>{dateParser(quiz.createdAt)}</Cell>
+      <Cell>{title}</Cell>
+      <Cell>{questions.length}</Cell>
+      <Cell>{dateParser(createdAt)}</Cell>
+      <Cell>
+        <Group>
+          <Button variant='outlined' palette='secondary'>
+            Edit
+          </Button>
+          <Button variant='outlined' palette='danger' onClick={ref.delete}>
+            Delete
+          </Button>
+        </Group>
+      </Cell>
     </Row>
   )
 
@@ -48,6 +61,7 @@ const Quizzes = () => {
             <HeadCell>Name</HeadCell>
             <HeadCell>Questions</HeadCell>
             <HeadCell>Created At</HeadCell>
+            <HeadCell>Controls</HeadCell>
           </Row>
         </Head>
         <Body>
@@ -57,6 +71,7 @@ const Quizzes = () => {
             .map(toTableRow)}
         </Body>
       </Table>
+      <pre>{JSON.stringify(quizzes, null, 2)}</pre>
     </MainContainer>
   )
 }
